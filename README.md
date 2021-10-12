@@ -1,2 +1,0 @@
-# bike-cycle-backend
-Backend
