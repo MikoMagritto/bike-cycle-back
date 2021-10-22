@@ -12,11 +12,9 @@ const bikeShema = new Schema ({
         enum : ["XS","S","M","L"]
     },
 
-    free : {
-
+    availability : {
+        type: Boolean,
     },
-
-    currentPosition : {}
 })
 
 /*{
