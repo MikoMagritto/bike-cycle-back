@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const User = require('../models/User.model');
 
 module.exports = app => {
     app.use(passport.initialize());
@@ -24,11 +25,11 @@ module.exports = app => {
                 User.findOne({ email })
                     .then(user => {
                         if (!user) {
-                            return done(null, false, { message: 'Incorrect username' });
+                            return done(null, false,`Aucun compte utilisateur n'est relié à ${email}`);
                         }
 
                         if (!bcrypt.compareSync(password, user.password)) {
-                            return done(null, false, { message: 'Incorrect password' });
+                            return done(null, false, `Le mot de passe ne correspond pas à l'adresse ${email}`);
                         }
 
                         done(null, user);
