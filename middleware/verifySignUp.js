@@ -31,18 +31,7 @@ const verifySignUp = (req, res, next) => {
         res.status(403).json({ message: 'Le mot de passe doit contenir au moins 6 charactères, un chiffre et une minuscule et une majuscule' });
         return;
     }
-
-    //5. Check email already in DataBase
-    User.findOne({ email })
-        .then(foundUser => {
-            if (foundUser) {
-                res.status(409).json({ message: 'Cette adresse E-mail est déjà utilisée' });
-                return;
-            }
-        })
-        .catch(err => {
-            res.status(400).json({ message: "Une erreur lors de la création du compte s'est produite." });
-        });
+    
     next();
 }
 
