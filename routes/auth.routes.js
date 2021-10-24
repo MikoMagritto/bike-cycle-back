@@ -7,9 +7,6 @@ authRoutes.post("/users", verifySignUp, authController.signUp);
 
 authRoutes.post("/sessions", authController.login);
 
-authRoutes.delete("/session", (req, res, next) => {
-  req.logout();
-  res.status(204).send();
-});
+authRoutes.delete("/session", authController.logout);
 
 module.exports = authRoutes;
