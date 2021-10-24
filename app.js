@@ -40,6 +40,15 @@ app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
+//Lien API / REACT
+const cors = require('cors');
+app.use(
+  cors({
+    credentials: true,
+    origin: ['http://localhost:3000']
+  })
+);
+
 const authRoutes = require('./routes/auth.routes')
 app.use('/',authRoutes)
 
