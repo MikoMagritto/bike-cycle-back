@@ -2,6 +2,10 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const User = require('../models/User.model');
 
+module.exports.test = (req, res) => {
+    res.status(200).json({message:'home page'})
+}
+
 module.exports.signUp = (req, res) => {
 
     const { email, password, firstName, lastName } = req.body;
@@ -74,4 +78,9 @@ module.exports.login = (req, res) => {
 module.exports.logout = (req, res) => {
     req.logout();
     res.status(204).send();
+}
+
+// Route to test middleware ensureAuthenticated
+module.exports.getPrivate = (req, res) => {
+    res.status(200).json({message:'welcome to protected route'})
 }
