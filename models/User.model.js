@@ -2,25 +2,23 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const userSchema = new Schema(
   {
-
+    // unique index sparse => allowed several email === null
     email: {
       type: String,
-      //required: [true, "L'email est obligatoire."],
-      unique: true,
-      lowercase: true
+      unique:true,
+      index:true, 
+      lowercase: true,
+      sparse:true,
     },
     password: {
       type: String,
-      //required: [true, 'Le mot de passe est obligatoire.'],
     },
     facebookID: String,
     firstName: {
       type: String,
-      //required: [true, "Le prénom est obligatoire."],
     },
     lastName: {
       type: String,
-      //required: [true, "Le nom est obligatoire."],
     },
 
     ownBikes: [

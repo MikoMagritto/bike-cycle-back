@@ -45,32 +45,43 @@ module.exports = app => {
     passport.use(new FacebookStrategy({
         clientID: process.env.FACEBOOK_APP_ID,
         clientSecret: process.env.FACEBOOK_APP_SECRET,
-        callbackURL: process.env.FACEBOOK_CALLBACK_URL
+        callbackURL: process.env.FACEBOOK_CALLBACK_URL,
+        profileFields: ['id', 'emails', 'name']
     },
         function (accessToken, refreshToken, profile, done) {
 
             // to see the structure of the data in received response:
             console.log("Facebook account details:", profile);
 
-            User.findOne({ facebookId: profile.id })
-                .then(user => {
-                    if (user) {
-                        done(null, user);
-                        return;
-                    }
+            User.findOne({ facebookID: profile.id }, function (err, user) {
+                // if there is an error, stop everything and return that
+                // ie an error connecting to the database
+                if (err)
+                    return done(err);
+
+                // if the user is found, then log them in
+                if (user) {
+                    return done(null, user); // user found, return that user
+                } else {
+                    // if Facebook doesn't return an email
+                    let emailFromFacebook;
+                    if (profile.emails) emailFromFacebook = profile.emails[0].value;
 
                     const aNewUser = new User({
-                        facebookId: profile.id,
+                        facebookID: profile.id,
+                        firstName: profile.name.givenName,
+                        lastName: profile.name.familyName,
+                        email: emailFromFacebook
                     });
 
-                    aNewUser.save()
-                        .then(newUser => {
-                            done(null, newUser);
-                          })
-                        .catch(err => done(err))
-                })
-                .catch(err => done(err))
+                    aNewUser.save(function (err) {
+                        if (err)
+                            throw err;
 
-        }
-    ));
+                        // if successful, return the new user
+                        return done(null, aNewUser);
+                    })
+                }
+            });
+        }));
 }

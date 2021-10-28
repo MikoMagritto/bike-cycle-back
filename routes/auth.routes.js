@@ -5,20 +5,23 @@ const authController = require('../controllers/authController');
 const { ensureAuthenticated } = require('../middleware/ensureAuthenticated');
 const verifySignUp = require('../middleware/verifySignUp');
 
-authRoutes.get('/',authController.test);
 //Local strategy
 authRoutes.post('/users', verifySignUp, authController.signUp);
 authRoutes.post('/sessions', authController.login);
+
+
 authRoutes.get('/private', ensureAuthenticated, authController.getPrivate);
 
 //Facebook strategy
-authRoutes.get('/auth/facebook', passport.authenticate('facebook'));
+authRoutes.get('/successFacebookLogin',authController.success);
+authRoutes.get('/failureFacebookLogin',authController.failure);
+
+authRoutes.get('/auth/facebook', passport.authorize('facebook', { scope : ['email'] }));
 authRoutes.get('/auth/facebook/callback',
     passport.authenticate('facebook', {
-        successRedirect: '/',
-        failureRedirect: '/login'
+        successRedirect: '/successFacebookLogin',
+        failureRedirect: '/failureFacebookLogin'
     }));
-
 
 authRoutes.delete('/session', authController.logout);
 

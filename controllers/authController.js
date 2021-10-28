@@ -2,10 +2,6 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const User = require('../models/User.model');
 
-module.exports.test = (req, res) => {
-    res.status(200).json({message:'home page'})
-}
-
 module.exports.signUp = (req, res) => {
 
     const { email, password, firstName, lastName } = req.body;
@@ -83,4 +79,12 @@ module.exports.logout = (req, res) => {
 // Route to test middleware ensureAuthenticated
 module.exports.getPrivate = (req, res) => {
     res.status(200).json({message:'welcome to protected route'})
+}
+
+module.exports.success = (req, res) => {
+    res.status(200).json({message:'Login with Facebook successful'})
+}
+
+module.exports.failure = (req, res) => {
+    res.status(200).json({message:'Login with Facebook failed'})
 }
