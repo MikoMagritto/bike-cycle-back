@@ -20,6 +20,9 @@ require('./configs/session.config')(app);
 
 require('./configs/passport.config')(app);
 
+const bikesRoutes = require('./routes/bikes.routes')
+app.use('/', bikesRoutes)
+
 // Middleware Setup
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -45,11 +48,14 @@ const cors = require('cors');
 app.use(
   cors({
     credentials: true,
-    origin: ['http://localhost:3000']
+    origin: [process.env.REACT_URL]
   })
 );
 
 const authRoutes = require('./routes/auth.routes')
 app.use('/',authRoutes)
+
+
+
 
 module.exports = app;

@@ -1,21 +1,30 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const User = require('../models/User.model')
 
-const bikeShema = new Schema ({
+const bikeShema = new Schema({
+  brand: {
+    type: String,
+  },
 
-    brand : {
-        type : String,
+  size: {
+    type: String,
+    enum: ["XS", "S", "M", "L"],
+  },
+
+  availability: {
+    type: Boolean,
+    default:false,
+  },
+
+  street_address: { type: String },
+
+  owner: 
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
-
-    size : {
-        type: String,
-        enum : ["XS","S","M","L"]
-    },
-
-    availability : {
-        type: Boolean,
-    },
-})
+});
 
 /*{
   id:’_b1’,
@@ -26,4 +35,4 @@ const bikeShema = new Schema ({
 lattitude:48.8544,
   	longitude:2.3488
 }
-}*/ 
+}*/
