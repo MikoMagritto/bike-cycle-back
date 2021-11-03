@@ -20,9 +20,6 @@ require('./configs/session.config')(app);
 
 require('./configs/passport.config')(app);
 
-const bikesRoutes = require('./routes/bikes.routes')
-app.use('/', bikesRoutes)
-
 // Middleware Setup
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -54,6 +51,9 @@ app.use(
 
 const authRoutes = require('./routes/auth.routes')
 app.use('/',authRoutes)
+
+const bikesRoutes = require('./routes/bikes.routes')
+app.use('/bikes', bikesRoutes)
 
 
 
