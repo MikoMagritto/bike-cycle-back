@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const User = require('../models/User.model')
 
 const bikeShema = new Schema({
   brand: {
@@ -26,13 +25,4 @@ const bikeShema = new Schema({
     },
 });
 
-/*{
-  id:’_b1’,
-  Marque: "Lorem ipsum...",
-  taille: ‘S’
-  disponibilité:true
-  currentPosition: { 
-lattitude:48.8544,
-  	longitude:2.3488
-}
-}*/
+module.exports = mongoose.model("Bike", bikeShema);;

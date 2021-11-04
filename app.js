@@ -53,7 +53,7 @@ const authRoutes = require('./routes/auth.routes')
 app.use('/',authRoutes)
 
 const bikesRoutes = require('./routes/bikes.routes')
-app.use('/bikes', bikesRoutes)
+app.use('/', bikesRoutes)
 
 
 

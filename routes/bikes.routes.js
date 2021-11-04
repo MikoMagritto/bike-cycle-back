@@ -4,19 +4,19 @@ const bikeRoutes = express.Router();
 const bikeController = require('../controllers/bikeController');
 
 //-------- ROUTE GET ALL BIKES --------------
-bikeRoutes.get("/", bikeController.getBikes);
+bikeRoutes.get("/bikes", bikeController.getAllBikes);
 
 //-------- ROUTE POST BIKE CREATION --------------
 
-bikeRoutes.post("/newBike",bikeController.newBike);
+bikeRoutes.post("/bikes",bikeController.addNewBike);
 
 //-------- ROUTE DETAIL BIKE --------------
 
-bikeRoutes.get("/:id", bikeController.bikeDetail);
+bikeRoutes.get("/bikes/:id", bikeController.getBike);
 
 //-------- ROUTE EDIT BIKE --------------
 
-bikeRoutes.put("/edit/:id", bikeController.editBike);
+bikeRoutes.put("/bikes/:id", bikeController.editBike);
 
 //-------- ROUTE DELETE BIKE --------------
 
