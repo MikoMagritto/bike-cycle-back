@@ -55,6 +55,8 @@ app.use('/',authRoutes)
 const bikesRoutes = require('./routes/bikes.routes')
 app.use('/', bikesRoutes)
 
+const coursesRoutes = require('./routes/courses.routes')
+app.use('/', coursesRoutes)
 
 
 

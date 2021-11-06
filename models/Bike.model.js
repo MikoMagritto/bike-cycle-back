@@ -8,21 +8,21 @@ const bikeShema = new Schema({
 
   size: {
     type: String,
-    enum: ["XS", "S", "M", "L","XL"],
+    enum: ["XS", "S", "M", "L", "XL"],
   },
 
   availability: {
     type: Boolean,
-    default:false,
+    default: false,
   },
 
   street_address: { type: String },
 
-  owner: 
-    {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-    },
+  bikeOwner: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
-module.exports = mongoose.model("Bike", bikeShema);;
+const Bike = mongoose.model("Bike", bikeShema);
+module.exports = Bike;

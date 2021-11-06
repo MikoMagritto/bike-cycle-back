@@ -1,10 +1,9 @@
 const Bike = require("../models/Bike.model");
-const mongoose = require("mongoose");
 
 //-------- ROUTE GET ALL BIKES --------------
 module.exports.getAllBikes = (req, res) => {
   Bike.find()
-    .populate('owner')
+    .populate('bikeOwner')
     .then((allBikesFromDb) => {
       res.status(200).json({ allBikes: allBikesFromDb });
     })
@@ -23,7 +22,7 @@ module.exports.addNewBike = (req, res) => {
     size: size,
     streetAdress: streetAdress,
     availability: availability,
-    owner: req.user,
+    bikeOwner: req.user.id,
   });
 
   newBike.save()
@@ -38,9 +37,8 @@ module.exports.addNewBike = (req, res) => {
 module.exports.getBike = (req, res) => {
 
   Bike.findById(req.params.id)
-    .populate('owner')
+    .populate('bikeOwner')
     .then((bikeFromDb) => {
-      console.log("bike :", bikeFromDb);
       res.status(200).json({ bike: bikeFromDb });
     })
     .catch(err => {
@@ -54,9 +52,9 @@ module.exports.editBike = (req, res) => {
   Bike.findById(req.params.id)
     .then((bikeFromDb) => {
       // Check if user is bikeOwner
-      if (bikeFromDb.owner.toString() === req.user.id) {
+      if (bikeFromDb.bikeOwner.toString() === req.user.id) {
         Bike.findByIdAndUpdate(req.params.id, req.body, { new: true })
-          .populate('owner')
+          .populate('bikeOwner')
           .then((bikeToUpdateFromDB) => {
             res.status(200).json({ updatedBike: bikeToUpdateFromDB });
           })
@@ -80,10 +78,10 @@ module.exports.deleteBike = (req, res) => {
   Bike.findById(req.params.id)
     .then((bikeFromDb) => {
       // Check if user is bikeOwner
-      if (bikeFromDb.owner.toString() === req.user.id) {
+      if (bikeFromDb.bikeOwner.toString() === req.user.id) {
 
         Bike.findByIdAndDelete(req.params.id)
-          .populate('owner')
+          .populate('bikeOwner')
           .then((bikeToDeleteFromDB) => {
             res.status(200).json({ deletedBike: bikeToDeleteFromDB });
           })

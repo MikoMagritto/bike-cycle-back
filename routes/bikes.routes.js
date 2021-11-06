@@ -7,20 +7,16 @@ const { ensureObjectIdIsValid } = require('../middleware/ensureObjectIdIsValid')
 //-------- ROUTE GET ALL BIKES --------------
 bikeRoutes.get("/bikes", bikeController.getAllBikes);
 
-//-------- ROUTE POST BIKE CREATION --------------
-
+//-------- ROUTE BIKE CREATION --------------
 bikeRoutes.post("/bikes",ensureAuthenticated, bikeController.addNewBike);
 
 //-------- ROUTE DETAIL BIKE --------------
-
 bikeRoutes.get("/bikes/:id", ensureObjectIdIsValid, bikeController.getBike);
 
 //-------- ROUTE EDIT BIKE --------------
-
 bikeRoutes.put("/bikes/:id", ensureAuthenticated, ensureObjectIdIsValid, bikeController.editBike);
 
 //-------- ROUTE DELETE BIKE --------------
-
 bikeRoutes.delete("/bikes/:id", ensureAuthenticated, ensureObjectIdIsValid, bikeController.deleteBike);
 
 module.exports = bikeRoutes;
