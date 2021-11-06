@@ -23,6 +23,7 @@ module.exports.addNewBike = (req, res) => {
     size: size,
     streetAdress: streetAdress,
     availability: availability,
+    owner: req.user,
   });
 
   newBike.save()
@@ -38,18 +39,6 @@ module.exports.addNewBike = (req, res) => {
 //-------- ROUTE DETAIL BIKE --------------
 module.exports.getBike = (req, res) => {
 
-  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-    res.status(400).json({ message: "Specified id is not valid" });
-    return;
-  }
-
-  /*
-  if (!req.session.currentUser) {
-    res.status(400).json({ message: "you need to login" });
-    return;
-  }
-  */
-
   Bike.findById(req.params.id)
     //.populate(owner)
     .then((bikeFromDb) => {
@@ -64,18 +53,23 @@ module.exports.getBike = (req, res) => {
 
 //-------- ROUTE EDIT BIKE --------------
 module.exports.editBike = (req, res) => {
-   
-  /*
-  if (!req.session.currentUser) {
-    res.status(401).json({ message: "You need to be logged in!" });
-    return;
-  }
-  */
 
-  Bike.findByIdAndUpdate(req.params.id, req.body, { new: true })
-    .then((bike) => {
-      console.log("bike", bike);
-      res.status(200).json({updatedBike: bike});
+  Bike.findById(req.params.id)
+    .then((bikeFromDb) => {
+      // Check if user is bikeOwner
+      if (bikeFromDb.owner.toString() === req.user.id) {
+        Bike.findByIdAndUpdate(req.params.id, req.body, { new: true })
+          .then((bike) => {
+            res.status(200).json({ updatedBike: bike });
+          })
+          .catch(err => {
+            console.log(err)
+            res.status(400).json({ message: err });
+          });
+
+      } else {
+        res.status(401).json({ message: 'Unauthorized' });
+      }
     })
     .catch(err => {
       console.log(err)

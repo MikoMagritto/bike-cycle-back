@@ -23,6 +23,6 @@ authRoutes.get('/auth/facebook/callback',
         failureRedirect: '/failureFacebookLogin'
     }));
 
-authRoutes.delete('/session', authController.logout);
+authRoutes.delete('/session', ensureAuthenticated, authController.logout);
 
 module.exports = authRoutes;

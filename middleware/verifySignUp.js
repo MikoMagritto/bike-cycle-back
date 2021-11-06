@@ -1,5 +1,3 @@
-const User = require('../models/User.model');
-
 const verifySignUp = (req, res, next) => {
 
     const { email, password, firstName, lastName } = req.body;
