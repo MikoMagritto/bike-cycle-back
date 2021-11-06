@@ -8,7 +8,7 @@ const bikeShema = new Schema({
 
   size: {
     type: String,
-    enum: ["XS", "S", "M", "L"],
+    enum: ["XS", "S", "M", "L","XL"],
   },
 
   availability: {

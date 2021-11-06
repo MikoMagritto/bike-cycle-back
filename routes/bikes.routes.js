@@ -1,5 +1,4 @@
 const express = require("express");
-const Bike = require("../models/Bike.model");
 const bikeRoutes = express.Router();
 const bikeController = require('../controllers/bikeController');
 const { ensureAuthenticated } = require('../middleware/ensureAuthenticated');
@@ -21,5 +20,7 @@ bikeRoutes.get("/bikes/:id", ensureObjectIdIsValid, bikeController.getBike);
 bikeRoutes.put("/bikes/:id", ensureAuthenticated, ensureObjectIdIsValid, bikeController.editBike);
 
 //-------- ROUTE DELETE BIKE --------------
+
+bikeRoutes.delete("/bikes/:id", ensureAuthenticated, ensureObjectIdIsValid, bikeController.deleteBike);
 
 module.exports = bikeRoutes;

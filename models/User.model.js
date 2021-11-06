@@ -20,31 +20,14 @@ const userSchema = new Schema(
     lastName: {
       type: String,
     },
-
-    ownBikes: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Bike",
-      },
-    ],
-
-    historical: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Course",
-      },
-    ],
-
     payment: {
       type: String,
       // required: [true, "Payment is required."],
     },
-
     rib: {
       type: String,
       // required: [true, "Payment is required."],
     },
-
   },
   {
     timestamps: true,

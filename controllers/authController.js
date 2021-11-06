@@ -46,7 +46,7 @@ module.exports.login = (req, res) => {
 
         if (err) {
             // Something went wrong authenticating user
-            res.status(400).json({ message: err });
+            res.status(400).json({ message: err.message });
             return;
         }
 
@@ -61,7 +61,7 @@ module.exports.login = (req, res) => {
             if (err) {
                 // Session save went bad
                 console.log(err)
-                res.status(400).json({ message: err });
+                res.status(400).json({ message: err.message });
                 return;
             }
 
@@ -80,7 +80,7 @@ module.exports.logout = (req, res) => {
 
 // Route to test middleware ensureAuthenticated
 module.exports.getPrivate = (req, res) => {
-    res.status(200).json({message:'welcome to protected route'})
+    res.status(200).json({message:`Hello ${req.user.firstName} ${req.user.lastName}, welcome to protected route`})
 }
 
 module.exports.success = (req, res) => {

@@ -4,11 +4,11 @@ const mongoose = require("mongoose");
 //-------- ROUTE GET ALL BIKES --------------
 module.exports.getAllBikes = (req, res) => {
   Bike.find()
+    .populate('owner')
     .then((allBikesFromDb) => {
       res.status(200).json({ allBikes: allBikesFromDb });
     })
     .catch(err => {
-      console.log(err)
       res.status(400).json({ message: err });
     });
 };
@@ -28,11 +28,9 @@ module.exports.addNewBike = (req, res) => {
 
   newBike.save()
     .then(() => {
-      console.log("newBike", newBike);
       res.status(201).json({ newBike: newBike });
     })
     .catch(err => {
-      console.log(err)
       res.status(400).json({ message: err });
     });
 };
@@ -40,13 +38,12 @@ module.exports.addNewBike = (req, res) => {
 module.exports.getBike = (req, res) => {
 
   Bike.findById(req.params.id)
-    //.populate(owner)
+    .populate('owner')
     .then((bikeFromDb) => {
       console.log("bike :", bikeFromDb);
       res.status(200).json({ bike: bikeFromDb });
     })
     .catch(err => {
-      console.log(err)
       res.status(400).json({ message: err });
     });
 };
@@ -59,11 +56,11 @@ module.exports.editBike = (req, res) => {
       // Check if user is bikeOwner
       if (bikeFromDb.owner.toString() === req.user.id) {
         Bike.findByIdAndUpdate(req.params.id, req.body, { new: true })
-          .then((bike) => {
-            res.status(200).json({ updatedBike: bike });
+          .populate('owner')
+          .then((bikeToUpdateFromDB) => {
+            res.status(200).json({ updatedBike: bikeToUpdateFromDB });
           })
           .catch(err => {
-            console.log(err)
             res.status(400).json({ message: err });
           });
 
@@ -72,11 +69,32 @@ module.exports.editBike = (req, res) => {
       }
     })
     .catch(err => {
-      console.log(err)
       res.status(400).json({ message: err });
     });
 };
 
 //-------- ROUTE DELETE BIKE --------------
 
+module.exports.deleteBike = (req, res) => {
 
+  Bike.findById(req.params.id)
+    .then((bikeFromDb) => {
+      // Check if user is bikeOwner
+      if (bikeFromDb.owner.toString() === req.user.id) {
+
+        Bike.findByIdAndDelete(req.params.id)
+          .populate('owner')
+          .then((bikeToDeleteFromDB) => {
+            res.status(200).json({ deletedBike: bikeToDeleteFromDB });
+          })
+          .catch(err => {
+            res.status(400).json({ message: err });
+          });
+      } else {
+        res.status(401).json({ message: 'Unauthorized' });
+      }
+    })
+    .catch(err => {
+      res.status(400).json({ message: err });
+    });
+}
