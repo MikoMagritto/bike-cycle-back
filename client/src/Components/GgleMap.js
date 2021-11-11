@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { GoogleMap } from "react-google-maps";
 
-export default class Map extends Component {
-
-    
-  
+export default class GgleMap extends Component {
+ 
     render() {
     
     return (

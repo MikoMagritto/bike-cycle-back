@@ -1,13 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
 import React, { Component } from "react";
-import { Routes, Route } from "react-router";
-import Home from "./Components/Home"
+import { Routes, Route } from 'react-router-dom';
 
-function App() {
-  return (
-        <Home/>
-  );
+import Navbar from './Components/Navbar'
+import Home from "./Components/Home";
+import Login from "./Components/auth/Login";
+import SignUp from "./Components/auth/SignUp";
+
+class App extends Component {
+
+  render() {
+
+    return (
+
+      <div className='App'>
+        <Navbar />
+        <Routes>
+          {/* HOMEPAGE */}
+          <Route path="/" element={<Home/>} />
+          <Route path="/login" element={<Login/>} />
+          <Route path="/signup" element={<SignUp/>} />
+        </Routes>
+      </div>
+    );
+  }
 }
 
 export default App;
