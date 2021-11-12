@@ -23,11 +23,11 @@ export default {
             lastName
         })
             .then(response => {
-                console.log('response.data: ', response.data)
+                // console.log('response.data: ', response.data)
                 return response.data
             })
             .catch(err => {
-                console.log('err: ',err.response)
+                // console.log('err: ',err.response)
                 return err.response.data
             })
     }

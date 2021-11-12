@@ -7,18 +7,22 @@ const SignUp = () => {
         email: "",
         password: "",
         firstName: "",
-        lastName: ""
+        lastName: "",
+        message: ""
     });
 
-    const { email, password, firstName, lastName } = formData;
+    const { email, password, firstName, lastName , message} = formData;
 
     const onChange = (e) =>
         setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
-        console.log('HELLLO WORLD', email, password, firstName, lastName);
         authService.signup(email, password, firstName, lastName)
+            .then(response => {
+                setFormData({...formData, message: response.message })
+            })
+            .catch(err => console.log(err))
     }
 
     return (
@@ -42,6 +46,10 @@ const SignUp = () => {
 
                 <button>Sign Up</button>
             </form>
+
+            {message && (
+                <p className="message">{message}</p>
+            )}
         </>
     );
 }
