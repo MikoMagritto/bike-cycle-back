@@ -8,6 +8,7 @@ const verifySignUp = require('../middleware/verifySignUp');
 //Local strategy
 authRoutes.post('/users', verifySignUp, authController.signUp);
 authRoutes.post('/sessions', authController.login);
+authRoutes.get('/session',ensureAuthenticated, authController.getUser)
 
 
 authRoutes.get('/private', ensureAuthenticated, authController.getPrivate);

@@ -12,6 +12,9 @@ export default {
             .then(response => {
                 return response.data
             })
+            .catch(err => {
+                return err.response.data
+            })
 
     },
 
@@ -23,12 +26,20 @@ export default {
             lastName
         })
             .then(response => {
-                // console.log('response.data: ', response.data)
                 return response.data
             })
             .catch(err => {
-                // console.log('err: ',err.response)
-                return err.response.data
+                console.log('err: ', err.response)
+            })
+    },
+
+    getUser() {
+        return this.service.get('/session')
+            .then(response => {
+                return response.data
+            })
+            .catch(err => {
+                console.log('err: ', err.response)
             })
     }
 }
