@@ -2,6 +2,10 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const User = require('../models/User.model');
 
+module.exports.getUser = (req, res) => {
+    res.status(200).json({ user: req.user });
+}
+
 module.exports.signUp = (req, res) => {
 
     const { email, password, firstName, lastName } = req.body;
