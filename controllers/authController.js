@@ -79,7 +79,7 @@ module.exports.logout = (req, res) => {
     let user = req.user;
     req.logout();
     // res.status(204).send();
-    res.status(200).json({ message: `${user.firstName} ${user.lastName} deconnected`});
+    res.status(200).json({ message: `${user.firstName} ${user.lastName} deconnected`, user:false});
 }
 
 // Route to test middleware ensureAuthenticated

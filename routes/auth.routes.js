@@ -2,13 +2,13 @@ const express = require('express');
 const passport = require('passport');
 const authRoutes = express.Router();
 const authController = require('../controllers/authController');
-const { ensureAuthenticated } = require('../middleware/ensureAuthenticated');
+const { ensureAuthenticated, isAuthenticated } = require('../middleware/ensureAuthenticated');
 const verifySignUp = require('../middleware/verifySignUp');
 
 //Local strategy
 authRoutes.post('/users', verifySignUp, authController.signUp);
 authRoutes.post('/sessions', authController.login);
-authRoutes.get('/session',ensureAuthenticated, authController.getUser)
+authRoutes.get('/session',isAuthenticated, authController.getUser)
 
 
 authRoutes.get('/private', ensureAuthenticated, authController.getPrivate);

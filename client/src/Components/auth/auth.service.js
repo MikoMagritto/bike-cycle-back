@@ -29,7 +29,7 @@ export default {
                 return response.data
             })
             .catch(err => {
-                console.log('err: ', err.response)
+                return err.response.data
             })
     },
 
@@ -39,7 +39,17 @@ export default {
                 return response.data
             })
             .catch(err => {
-                console.log('err: ', err.response)
+                return err.response.data
+            })
+    },
+
+    logout() {
+        return this.service.delete('/session')
+            .then(response => {
+                return response.data
+            })
+            .catch(err => {
+                return err.response.data
             })
     }
 }

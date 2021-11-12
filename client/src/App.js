@@ -14,16 +14,15 @@ const App = () => {
 
   useEffect(() => {
     getUser();
-  })
+  },[])
 
   const getUser = () => {
     authService.getUser()
       .then(response => {
         console.log('getUser response: ', response.user)
-        // updateUser(response.user)
-        
+        updateUser(response.user)
       })
-      .catch(err => console.log(err))
+      .catch(err => console.log('err: ',err))
   }
 
   const updateUser = (userObj) => {
@@ -33,12 +32,12 @@ const App = () => {
   return (
 
     <div className='App'>
-      <Navbar />
+      <Navbar user={user} updateUser={updateUser}/>
       <Routes>
         {/* HOMEPAGE */}
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<Login user={user} updateUser={updateUser}/>} />
+        <Route path="/signup" element={<SignUp user={user} updateUser={updateUser}/>} />
       </Routes>
     </div>
   );

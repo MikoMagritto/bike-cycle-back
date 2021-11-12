@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import authService from "./auth.service";
 
 
-const Login = () => {
+const Login = (props) => {
 
     const [formData, setFormData] = useState({
         email: "",
@@ -19,9 +19,10 @@ const Login = () => {
     const handleFormSubmit = (e) => {
         e.preventDefault();
         authService.login(email, password)
-            .then(response => {
-                console.log('response: ',response)
-                setFormData({ ...formData, message: response.message })
+            .then(user => {
+                console.log('response Login: ',user)
+                setFormData({ ...formData, message: user.message })
+                props.updateUser(user)
             })
             .catch(err => console.log(err))
     }
