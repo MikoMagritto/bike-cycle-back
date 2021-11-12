@@ -1,13 +1,15 @@
-import React, { Component } from "react";
+import React from "react";
 
-export default class Login extends Component {
+import authService from "./auth.service";
 
-    render() {
 
-        return (
-            <div>
-                Login to come
-            </div>
-        );
-    }
+const Login = () => {
+
+    return (
+        <div>
+            Login to come
+        </div>
+    );
 }
+
+export default Login;
