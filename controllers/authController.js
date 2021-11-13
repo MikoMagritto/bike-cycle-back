@@ -30,9 +30,18 @@ module.exports.signUp = (req, res) => {
 
             aNewUser.save()
                 .then(() => {
-                    // Persist our new user into session
-                    req.session.currentUser = aNewUser;
-                    res.status(201).json({ message: `Compte utilisateur créé avec succès ${email}` });
+                    // save user in session: req.user
+                    req.login(aNewUser, err => {
+                        if (err) {
+                            // Session save went bad
+                            console.log(err)
+                            res.status(400).json({ message: err.message });
+                            return;
+                        }
+
+                        // All good, we are now logged in and `req.user` is now set
+                        res.status(201).json(aNewUser);
+                    });
                 })
                 .catch(err => {
                     res.status(400).json({ message: "Une erreur lors de la création du compte s'est produite." });
@@ -79,18 +88,18 @@ module.exports.logout = (req, res) => {
     let user = req.user;
     req.logout();
     // res.status(204).send();
-    res.status(200).json({ message: `${user.firstName} ${user.lastName} deconnected`, user:false});
+    res.status(200).json({ message: `${user.firstName} ${user.lastName} deconnected`, user: false });
 }
 
 // Route to test middleware ensureAuthenticated
 module.exports.getPrivate = (req, res) => {
-    res.status(200).json({message:`Hello ${req.user.firstName} ${req.user.lastName}, welcome to protected route`})
+    res.status(200).json({ message: `Hello ${req.user.firstName} ${req.user.lastName}, welcome to protected route` })
 }
 
 module.exports.success = (req, res) => {
-    res.status(200).json({message:'Login with Facebook successful'})
+    res.status(200).json({ message: 'Login with Facebook successful' })
 }
 
 module.exports.failure = (req, res) => {
-    res.status(200).json({message:'Login with Facebook failed'})
+    res.status(200).json({ message: 'Login with Facebook failed' })
 }

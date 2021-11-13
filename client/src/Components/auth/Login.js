@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import {useNavigate} from 'react-router-dom';
 
 import authService from "./auth.service";
 
 
 const Login = (props) => {
+
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         email: "",
@@ -20,11 +23,13 @@ const Login = (props) => {
         e.preventDefault();
         authService.login(email, password)
             .then(user => {
-                console.log('response Login: ',user)
-                setFormData({ ...formData, message: user.message })
-                props.updateUser(user)
+                console.log('response Login: ', user)
+                props.updateUser(user);
+                navigate('/');
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                setFormData({ ...formData, message: err.response.data.message })
+            })
     }
 
     return (

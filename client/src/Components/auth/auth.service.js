@@ -12,10 +12,6 @@ export default {
             .then(response => {
                 return response.data
             })
-            .catch(err => {
-                return err.response.data
-            })
-
     },
 
     signup(email, password, firstName, lastName) {
@@ -28,15 +24,13 @@ export default {
             .then(response => {
                 return response.data
             })
-            .catch(err => {
-                return err.response.data
-            })
     },
 
     getUser() {
         return this.service.get('/session')
             .then(response => {
-                return response.data
+                console.log('response auth: ', response.data.user)
+                return response.data.user
             })
             .catch(err => {
                 return err.response.data

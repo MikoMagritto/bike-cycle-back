@@ -1,7 +1,11 @@
 import React, { useState } from "react";
+import {useNavigate} from 'react-router-dom';
+
 import authService from "./auth.service";
 
-const SignUp = () => {
+const SignUp = (props) => {
+
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         email: "",
@@ -19,10 +23,14 @@ const SignUp = () => {
     const handleFormSubmit = (e) => {
         e.preventDefault();
         authService.signup(email, password, firstName, lastName)
-            .then(response => {
-                setFormData({...formData, message: response.message })
+            .then(user => {
+                console.log('response Sign Up: ', user)
+                props.updateUser(user)
+                navigate('/');
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                setFormData({ ...formData, message: err.response.data.message })
+            })
     }
 
     return (

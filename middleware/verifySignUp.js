@@ -2,14 +2,12 @@ const verifySignUp = (req, res, next) => {
 
     const { email, password, firstName, lastName } = req.body;
 
-    console.log('email: ', email)
     // 1. Check email and password are not empty
     if (!email || !password) {
         res.status(400).json({ message: 'Merci de saisir une adresse E-mail et un mot de passe' });
         return;
     }
 
-    console.log('firstname',firstName)
     // 2. Check firstName and lastName are not empty
     if (!firstName || !lastName) {
         res.status(400).json({ message: 'Merci de saisir votre nom et votre prénom' });

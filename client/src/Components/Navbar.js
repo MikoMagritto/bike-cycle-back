@@ -19,15 +19,27 @@ const Navbar = (props) => {
             <Link to="/">
                 <p>Home</p>
             </Link>
-            <Link to="/login">
-                <p>Login</p>
-            </Link>
-            <Link to="/signup">
-                <p>Sign Up</p>
-            </Link>
-            <button className="btn logout" onClick={logout}>
-                Log out
-            </button>
+
+            {console.log('props: ', props)}
+            {/* If user is logged in -> hide login & sign up link*/}
+            {!props.user && (
+                <>
+                    <Link to="/login">
+                        <p>Login</p>
+                    </Link>
+                    <Link to="/signup">
+                        <p>Sign Up</p>
+                    </Link>
+                </>
+            )}
+
+            {/* If user is not logged in -> hide logout button*/}
+            {props.user && (
+                <button className="btn logout" onClick={logout}>
+                    Log out
+                </button>
+            )}
+
         </div>
     )
 }

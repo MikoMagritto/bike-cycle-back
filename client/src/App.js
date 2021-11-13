@@ -14,30 +14,31 @@ const App = () => {
 
   useEffect(() => {
     getUser();
-  },[])
+    // eslint-disable-next-line
+  }, [])
 
   const getUser = () => {
     authService.getUser()
-      .then(response => {
-        console.log('getUser response: ', response.user)
-        updateUser(response.user)
+      .then(user => {
+        console.log('getUser response: ', user)
+        updateUser(user)
       })
-      .catch(err => console.log('err: ',err))
+      .catch(err => console.log('err: ', err))
   }
 
   const updateUser = (userObj) => {
-    setUser({ user : userObj })
+    setUser(userObj)
   }
 
   return (
 
     <div className='App'>
-      <Navbar user={user} updateUser={updateUser}/>
+      <Navbar user={user} updateUser={updateUser} />
       <Routes>
         {/* HOMEPAGE */}
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login user={user} updateUser={updateUser}/>} />
-        <Route path="/signup" element={<SignUp user={user} updateUser={updateUser}/>} />
+        <Route path="/login" element={<Login user={user} updateUser={updateUser} />} />
+        <Route path="/signup" element={<SignUp user={user} updateUser={updateUser} />} />
       </Routes>
     </div>
   );
