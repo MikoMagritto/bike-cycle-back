@@ -5,6 +5,8 @@ import Navbar from './Components/Navbar'
 import Home from "./Components/Home";
 import Login from "./Components/auth/Login";
 import SignUp from "./Components/auth/SignUp";
+import BikeDetails from "./Components/bike/BikeDetails";
+import NewBike from "./Components/bike/NewBike";
 
 import authService from "./Components/auth/auth.service";
 
@@ -37,8 +39,18 @@ const App = () => {
       <Routes>
         {/* HOMEPAGE */}
         <Route path="/" element={<Home />} />
+
+        {/* LOGIN */}
         <Route path="/login" element={<Login user={user} updateUser={updateUser} />} />
+
+        {/* SIGN UP */}
         <Route path="/signup" element={<SignUp user={user} updateUser={updateUser} />} />
+
+        {/* NEW BIKE */}
+        <Route path="/add-bike" element={<NewBike user={user}/>} />
+
+        {/* BIKE DETAILS */}
+        {/* <Route path="/bikes/:id" element={<BikeDetails />} /> */}
       </Routes>
     </div>
   );

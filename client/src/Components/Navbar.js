@@ -21,7 +21,7 @@ const Navbar = (props) => {
             </Link>
 
             {console.log('props: ', props)}
-            {/* If user is logged in -> hide login & sign up link*/}
+            {/* If user is not logged in -> display login & sign up link*/}
             {!props.user && (
                 <>
                     <Link to="/login">
@@ -33,11 +33,19 @@ const Navbar = (props) => {
                 </>
             )}
 
-            {/* If user is not logged in -> hide logout button*/}
+            {/* If user is logged in -> display logout button*/}
             {props.user && (
-                <button className="btn logout" onClick={logout}>
-                    Log out
-                </button>
+                <>
+                    <Link to="/courses">
+                        <p>Mes trajets</p>
+                    </Link>
+                    <Link to="/bikes">
+                        <p>Mes vélos</p>
+                    </Link>
+                    <button className="btn logout" onClick={logout}>
+                        Log out
+                    </button>
+                </>
             )}
 
         </div>

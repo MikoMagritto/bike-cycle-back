@@ -15,9 +15,10 @@ module.exports.getAllBikes = (req, res) => {
 //-------- ROUTE POST BIKE CREATION --------------
 module.exports.addNewBike = (req, res) => {
 
-  const { brand, size, streetAdress, availability } = req.body;
+  const { name, brand, size, streetAdress, availability } = req.body;
 
   const newBike = new Bike({
+    name: name,
     brand: brand,
     size: size,
     streetAdress: streetAdress,
@@ -27,7 +28,7 @@ module.exports.addNewBike = (req, res) => {
 
   newBike.save()
     .then(() => {
-      res.status(201).json({ newBike: newBike });
+      res.status(201).json(newBike);
     })
     .catch(err => {
       res.status(400).json({ message: err });

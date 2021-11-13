@@ -32,8 +32,11 @@ const Login = (props) => {
             })
     }
 
-    return (
+    return (        
         <>
+            {/* If user is logged in -> redirect to '/'*/}
+            {props.user && navigate('/')}
+
             <form onSubmit={handleFormSubmit}>
                 <label>Email:
                     <input type="email" name="email" value={email} onChange={onChange} />
