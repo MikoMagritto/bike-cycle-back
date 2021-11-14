@@ -26,6 +26,7 @@ const NewBike = (props) => {
         bikeService.addNewBike(name, brand, size, address, availability)
             .then(response => {
                 console.log('response add bike element ', response)
+                navigate('/my-bike')
 
             })
             .catch(err => {

@@ -1,11 +1,13 @@
 const Bike = require("../models/Bike.model");
 
 //-------- ROUTE GET ALL BIKES --------------
-module.exports.getAllBikes = (req, res) => {
+module.exports.getBikes = (req, res) => {
+  // console.log('filter: ', filter)
+  console.log('req.params: ', req.params)
   Bike.find()
     .populate('bikeOwner')
-    .then((allBikesFromDb) => {
-      res.status(200).json({ allBikes: allBikesFromDb });
+    .then((bikesFromDb) => {
+      res.status(200).json(bikesFromDb);
     })
     .catch(err => {
       res.status(400).json({ message: err });
@@ -14,11 +16,8 @@ module.exports.getAllBikes = (req, res) => {
 
 //-------- ROUTE POST BIKE CREATION --------------
 module.exports.addNewBike = (req, res) => {
-
+  
   const { name, brand, size, address, availability } = req.body;
-
-  console.log('availability: ',availability)
-  console.log('reqbody: ',req.body)
 
   const newBike = new Bike({
     name: name,
@@ -34,11 +33,11 @@ module.exports.addNewBike = (req, res) => {
       res.status(201).json(newBike);
     })
     .catch(err => {
-      console.log('back err : ',err)
+      console.log('back err : ', err)
       if (err.code === 11000)
         res.status(400).json({ message: `Un vélo portant le nom ${name} existe déjà!` });
 
-      
+
     });
 };
 //-------- ROUTE DETAIL BIKE --------------

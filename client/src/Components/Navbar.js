@@ -39,7 +39,7 @@ const Navbar = (props) => {
                     <Link to="/courses">
                         <p>Mes trajets</p>
                     </Link>
-                    <Link to="/bikes">
+                    <Link to="/my-bikes">
                         <p>Mes vélos</p>
                     </Link>
                     <button className="btn logout" onClick={logout}>

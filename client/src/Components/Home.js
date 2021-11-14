@@ -1,15 +1,21 @@
-import React, { Component } from "react";
+import React from "react";
 import WrappedGgleMap from "./WrappedGgleMap";
+import BikeDetails from "./bike/BikeDetails";
 
-export default class Home extends Component {
+const Home = (props) => {
 
-    render() {
-
-        return (
-            <div>
-                Home
-                <WrappedGgleMap />
-            </div>
-        );
-    }
+    return (
+        <div>
+            Home
+            <WrappedGgleMap />
+            {props.bikes.map((bike) => {
+                console.log('bike: ', bike)
+                return (
+                    <BikeDetails key={bike._id} bike={bike} />
+                )
+            })}
+        </div>
+    );
 }
+
+export default Home;
