@@ -2,9 +2,10 @@ const Bike = require("../models/Bike.model");
 
 //-------- ROUTE GET ALL BIKES --------------
 module.exports.getBikes = (req, res) => {
-  // console.log('filter: ', filter)
-  console.log('req.params: ', req.params)
-  Bike.find()
+  
+  const filter = req.query;
+  
+  Bike.find(filter)
     .populate('bikeOwner')
     .then((bikesFromDb) => {
       res.status(200).json(bikesFromDb);

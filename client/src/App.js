@@ -18,7 +18,7 @@ const App = () => {
 
   useEffect(() => {
     getUser();
-    getBikes({brand:'Decathlon' });
+    getBikes();
     // eslint-disable-next-line
   }, [])
 
@@ -55,7 +55,7 @@ const App = () => {
       <Navbar user={user} updateUser={updateUser} />
       <Routes>
         {/* HOMEPAGE */}
-        <Route path="/" element={<Home bikes={bikes} />} />
+        <Route path="/" element={<Home bikes={bikes} getBikes={getBikes} />} />
 
         {/* LOGIN */}
         <Route path="/login" element={<Login user={user} updateUser={updateUser} />} />
@@ -64,15 +64,14 @@ const App = () => {
         <Route path="/signup" element={<SignUp user={user} updateUser={updateUser} />} />
 
         {/* NEW BIKE */}
-        <Route path="/add-bike" element={<NewBike user={user} />} />
+        <Route path="/add-bike" element={<NewBike user={user} getBikes={getBikes}/>} />
 
         {/* MY BIKES */}
-        <Route path="/my-bikes" element={<MyBikes user={user} />} />
+        <Route path="/my-bikes" element={<MyBikes user={user} bikes={bikes} getBikes={getBikes} />} />
 
       </Routes>
     </div>
   );
-
 }
 
 export default App;

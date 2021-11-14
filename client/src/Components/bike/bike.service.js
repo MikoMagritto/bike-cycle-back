@@ -7,13 +7,15 @@ export default {
         withCredentials: true
     }),
 
-    getBikes(filter){
-        console.log('filter: ',filter)
-        return this.service.get("/bikes")
-        .then(response => {
-            console.log('response getBikes: ', response.data)
-            return response.data;
+    getBikes(filter) {
+
+        return this.service.get("/bikes", {
+            params:filter
         })
+            .then(response => {
+                console.log('response getBikes: ', response.data)
+                return response.data;
+            })
     },
 
     addNewBike(name, brand, size, address, availability) {

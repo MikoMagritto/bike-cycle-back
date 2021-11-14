@@ -1,14 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { HashLink as Link } from "react-router-hash-link";
-import { useNavigate } from 'react-router-dom';
 
-import bikeService from "./bike.service";
+import BikeDetails from "./BikeDetails";
 
-const MyBikes = () => {
+const MyBikes = (props) => {
+
+    useEffect(() => {
+        props.getBikes({ bikeOwner: props.user._id });
+        // eslint-disable-next-line
+    }, [])
 
     return (
         <>
+            {console.log('props: ', props)}
 
+            {props.bikes.map((bike) => {
+                return (
+                    <BikeDetails key={bike._id} bike={bike} />
+                )
+            })}
             <Link to="/add-bike">
                 <p>Ajouter un vélo</p>
             </Link>

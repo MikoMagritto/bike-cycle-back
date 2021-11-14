@@ -1,15 +1,19 @@
 import React from "react";
 import { HashLink as Link } from "react-router-hash-link";
+import {useNavigate} from 'react-router-dom';
 
 import authService from "./auth/auth.service";
 
 const Navbar = (props) => {
 
+    const navigate = useNavigate();
+    
     const logout = () => {
         authService.logout()
             .then(response => {
                 console.log('response navbar: ', response)
-                props.updateUser(response.user)
+                props.updateUser(response.user);
+                navigate('/');
             })
             .catch(err => console.log(err))
     }
