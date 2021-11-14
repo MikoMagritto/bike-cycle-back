@@ -7,13 +7,13 @@ export default {
         withCredentials: true
     }),
 
-    addNewBike(name, brand, size, adress, availabilty) {
+    addNewBike(name, brand, size, address, availability) {
         return this.service.post("/bikes", {
             name,
             brand,
             size,
-            adress,
-            availabilty
+            address,
+            availability
         })
             .then(response => {
                 console.log('response add bike service: ', response.data)

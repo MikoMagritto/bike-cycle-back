@@ -11,23 +11,27 @@ const NewBike = (props) => {
         name: "",
         brand: "",
         size: "",
-        adress:"",
-        availabilty:""
+        address: "",
+        availabilty: "",
+        message: ""
     });
 
-    const { name, brand, size , adress, availabilty} = formData;
+    const { name, brand, size, address, availability, message } = formData;
 
     const onChange = (e) =>
         setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
-        bikeService.addNewBike(name, brand, size , adress, availabilty)
+        bikeService.addNewBike(name, brand, size, address, availability)
             .then(response => {
                 console.log('response add bike element ', response)
 
             })
-            .catch(err => console.log('err: ',err.response))
+            .catch(err => {
+                console.log('err: ', err)
+                setFormData({ ...formData, message: err.response.data.message });
+            })
     }
 
     return (
@@ -60,23 +64,27 @@ const NewBike = (props) => {
                 </label>
 
                 <label>Adresse:
-                    <input type="text" name="adress" value={adress} onChange={onChange} />
+                    <input type="text" name="address" value={address} onChange={onChange} />
                 </label>
 
                 <label>Disponibilité:
                     <select
-                        name="availabilty"
-                        value={availabilty}
+                        name="availability"
+                        value={availability}
                         onChange={onChange}
                     >
                         <option value="" selected disabled hidden>Choose here</option>
-                        <option value="XS">Oui</option>
-                        <option value="S">Non</option>
+                        <option value="Oui">Oui</option>
+                        <option value="Non">Non</option>
                     </select>
                 </label>
 
                 <button>Ajouter</button>
             </form>
+
+            {message && (
+                <p className="message">{message}</p>
+            )}
         </>
     )
 }

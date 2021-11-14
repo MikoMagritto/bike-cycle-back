@@ -5,23 +5,30 @@ const bikeShema = new Schema({
   name: {
     type: String,
     unique:true,
+    required: true, 
   },
 
   brand: {
     type: String,
+    required: true,
   },
 
   size: {
     type: String,
     enum: ["XS", "S", "M", "L", "XL"],
+    required: true,
   },
 
   availability: {
-    type: Boolean,
-    default: false,
+    type: String,
+    enum: ["Oui", "Non"],
+    required: true,
   },
 
-  street_address: { type: String },
+  address: { 
+    type: String,
+    required: true,
+  },
 
   bikeOwner: {
     type: Schema.Types.ObjectId,

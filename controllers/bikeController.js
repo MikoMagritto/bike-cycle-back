@@ -15,13 +15,16 @@ module.exports.getAllBikes = (req, res) => {
 //-------- ROUTE POST BIKE CREATION --------------
 module.exports.addNewBike = (req, res) => {
 
-  const { name, brand, size, streetAdress, availability } = req.body;
+  const { name, brand, size, address, availability } = req.body;
+
+  console.log('availability: ',availability)
+  console.log('reqbody: ',req.body)
 
   const newBike = new Bike({
     name: name,
     brand: brand,
     size: size,
-    streetAdress: streetAdress,
+    address: address,
     availability: availability,
     bikeOwner: req.user.id,
   });
@@ -31,7 +34,11 @@ module.exports.addNewBike = (req, res) => {
       res.status(201).json(newBike);
     })
     .catch(err => {
-      res.status(400).json({ message: err });
+      console.log('back err : ',err)
+      if (err.code === 11000)
+        res.status(400).json({ message: `Un vélo portant le nom ${name} existe déjà!` });
+
+      
     });
 };
 //-------- ROUTE DETAIL BIKE --------------
