@@ -2,7 +2,9 @@ import React from "react";
 import { HashLink as Link } from "react-router-hash-link";
 import {useNavigate} from 'react-router-dom';
 
-import authService from "./auth/auth.service";
+import authService from "../auth/auth.service";
+
+import "./Navbar.css"
 
 const Navbar = (props) => {
 
@@ -19,7 +21,7 @@ const Navbar = (props) => {
     }
 
     return (
-        <div className='navbar'>
+        <nav className='navbar'>
             <Link to="/">
                 <p>Home</p>
             </Link>
@@ -52,7 +54,7 @@ const Navbar = (props) => {
                 </>
             )}
 
-        </div>
+        </nav>
     )
 }
 

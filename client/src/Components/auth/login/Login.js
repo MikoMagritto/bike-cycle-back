@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {useNavigate} from 'react-router-dom';
 
-import authService from "./auth.service";
+import authService from "../auth.service";
 
 
 const Login = (props) => {
@@ -37,6 +37,7 @@ const Login = (props) => {
             {/* If user is logged in -> redirect to '/'*/}
             {props.user && navigate('/')}
 
+            {/* Login Passeport Local Strategy */}
             <form onSubmit={handleFormSubmit}>
                 <label>Email:
                     <input type="email" name="email" value={email} onChange={onChange} />
@@ -52,6 +53,8 @@ const Login = (props) => {
             {message && (
                 <p className="message">{message}</p>
             )}
+
+            {/* Login Passeport Facebook Strategy */}
         </>
     );
 }

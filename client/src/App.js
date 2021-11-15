@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from 'react-router-dom';
 
-import Navbar from './Components/Navbar'
+import Navbar from './Components/navbar/Navbar';
 import Home from "./Components/Home";
-import Login from "./Components/auth/Login";
+import Login from "./Components/auth/login/Login";
 import SignUp from "./Components/auth/SignUp";
 import NewBike from "./Components/bike/NewBike";
 import MyBikes from "./Components/bike/MyBikes";
