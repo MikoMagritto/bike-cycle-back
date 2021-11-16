@@ -91,15 +91,12 @@ module.exports.logout = (req, res) => {
     res.status(200).json({ message: `${user.firstName} ${user.lastName} deconnected`, user: false });
 }
 
-// Route to test middleware ensureAuthenticated
-module.exports.getPrivate = (req, res) => {
-    res.status(200).json({ message: `Hello ${req.user.firstName} ${req.user.lastName}, welcome to protected route` })
-}
-
 module.exports.success = (req, res) => {
-    res.status(200).json({ message: 'Login with Facebook successful' })
+    res.redirect(`${process.env.REACT_URL}`);
 }
 
 module.exports.failure = (req, res) => {
-    res.status(200).json({ message: 'Login with Facebook failed' })
+    console.log('failure')
+    res.redirect(`${process.env.REACT_URL}/login`);
+    //res.status(200).json({ message: 'Login with Facebook failed' })
 }

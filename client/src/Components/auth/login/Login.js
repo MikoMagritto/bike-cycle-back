@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import authService from "../auth.service";
 
@@ -32,7 +32,7 @@ const Login = (props) => {
             })
     }
 
-    return (        
+    return (
         <>
             {/* If user is logged in -> redirect to '/'*/}
             {props.user && navigate('/')}
@@ -55,6 +55,7 @@ const Login = (props) => {
             )}
 
             {/* Login Passeport Facebook Strategy */}
+            <a href="http://localhost:5000/auth/facebook">Se connecter avec Facebook</a>
         </>
     );
 }

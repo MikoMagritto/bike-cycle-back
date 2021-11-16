@@ -10,9 +10,6 @@ authRoutes.post('/users', verifySignUp, authController.signUp);
 authRoutes.post('/sessions', authController.login);
 authRoutes.get('/session', isAuthenticated, authController.getUser)
 
-
-authRoutes.get('/private', ensureAuthenticated, authController.getPrivate);
-
 //Facebook strategy
 authRoutes.get('/successFacebookLogin', authController.success);
 authRoutes.get('/failureFacebookLogin', authController.failure);

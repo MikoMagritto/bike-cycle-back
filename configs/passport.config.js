@@ -51,7 +51,7 @@ module.exports = app => {
         function (accessToken, refreshToken, profile, done) {
 
             // to see the structure of the data in received response:
-            console.log("Facebook account details:", profile);
+            //console.log("Facebook account details:", profile);
 
             User.findOne({ facebookID: profile.id }, function (err, user) {
                 // if there is an error, stop everything and return that
