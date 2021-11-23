@@ -25,7 +25,7 @@ const NewBike = (props) => {
         e.preventDefault();
         bikeService.addNewBike(name, brand, size, address, availability)
             .then(response => {
-                console.log('response add bike element ', response)    
+                console.log('response add bike element ', response)
                 navigate('/my-bikes');
             })
             .catch(err => {
@@ -63,10 +63,6 @@ const NewBike = (props) => {
                     </select>
                 </label>
 
-                <label>Adresse:
-                    <input type="text" name="address" value={address} onChange={onChange} />
-                </label>
-
                 <label>Disponibilité:
                     <select
                         name="availability"
@@ -78,6 +74,36 @@ const NewBike = (props) => {
                         <option value="Non">Non</option>
                     </select>
                 </label>
+
+                <label>Adresse:
+                    <input type="text" name="address" value={address} onChange={onChange} />
+                </label>
+
+                <div className="bikeAdress">
+                    <label>
+                        <span>Enter adresse</span>
+                        <input
+                            id="ship-address"
+                            name="ship-address"
+                            required
+                            autocomplete="off"
+                        />
+                    </label>
+                    <label>
+                        <span>City*</span>
+                        <input
+                            id="locality"
+                            name="locality"
+                            required />
+                    </label>
+                    <label for="postal_code">
+                        <span>Postal code*</span>
+                        <input
+                            id="postcode"
+                            name="postcode"
+                            required />
+                    </label>
+                </div>
 
                 <button>Ajouter</button>
             </form>
