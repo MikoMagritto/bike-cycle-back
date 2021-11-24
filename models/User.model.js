@@ -13,7 +13,9 @@ const userSchema = new Schema(
     password: {
       type: String,
     },
-    facebookID: String,
+    facebookID: {
+      type: String,
+    },
     firstName: {
       type: String,
     },

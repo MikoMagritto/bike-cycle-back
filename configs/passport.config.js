@@ -52,36 +52,86 @@ module.exports = app => {
 
             // to see the structure of the data in received response:
             //console.log("Facebook account details:", profile);
+            User.findOne({ facebookID: profile.id })
+                .then(user => {
 
-            User.findOne({ facebookID: profile.id }, function (err, user) {
+                    // if the user is found, then log them in
+                    if (user) {
+                        return done(null, user); // user found, return that user
+                    } else {
+
+                        // if Facebook doesn't return an email
+                        let emailFromFacebook;
+                        if (profile.emails) emailFromFacebook = profile.emails[0].value;
+
+                        // Check if email already use
+                        if (emailFromFacebook) {
+                            User.findOne({ email: emailFromFacebook })
+                                .then(alreadyExistingUser => {
+                                    // If yes => Update facebook ID
+                                    if (alreadyExistingUser) {
+                                        alreadyExistingUser.facebookID = profile.id;
+                                        // if successful, return the updated user
+                                        alreadyExistingUser.save(function (err) {
+                                            if (err)
+                                                throw err;
+
+                                            // if successful, return the new user
+                                            return done(null, alreadyExistingUser);
+                                        })
+                                    } else {
+                                        // If not => create new user
+                                        User.create({
+                                            facebookID: profile.id,
+                                            email: emailFromFacebook,
+                                            facebookID: profile.id,
+                                            firstName: profile.name.givenName,
+                                            lastName: profile.name.familyName,
+                                        })
+                                            // if successful, return the new user
+                                            .then(aNewUser => done(null, aNewUser))
+                                            .catch(err => done(err))
+                                    }
+                                })
+                                .catch(err => done(err))
+                        }
+                    }
+                })
                 // if there is an error, stop everything and return that
                 // ie an error connecting to the database
-                if (err)
-                    return done(err);
+                .catch(err => done(err))
 
-                // if the user is found, then log them in
-                if (user) {
-                    return done(null, user); // user found, return that user
-                } else {
-                    // if Facebook doesn't return an email
-                    let emailFromFacebook;
-                    if (profile.emails) emailFromFacebook = profile.emails[0].value;
-
-                    const aNewUser = new User({
-                        facebookID: profile.id,
-                        firstName: profile.name.givenName,
-                        lastName: profile.name.familyName,
-                        email: emailFromFacebook
-                    });
-
-                    aNewUser.save(function (err) {
-                        if (err)
-                            throw err;
-
-                        // if successful, return the new user
-                        return done(null, aNewUser);
-                    })
-                }
-            });
+            /*
+                User.findOne({ facebookID: profile.id }, function (err, user) {
+                    // if there is an error, stop everything and return that
+                    // ie an error connecting to the database
+                    if (err)
+                        return done(err);
+    
+                    // if the user is found, then log them in
+                    if (user) {
+                        return done(null, user); // user found, return that user
+                    } else {
+                        // if Facebook doesn't return an email
+                        let emailFromFacebook;
+                        if (profile.emails) emailFromFacebook = profile.emails[0].value;
+    
+                        
+                        const aNewUser = new User({
+                            facebookID: profile.id,
+                            firstName: profile.name.givenName,
+                            lastName: profile.name.familyName,
+                            email: emailFromFacebook
+                        });
+    
+                        aNewUser.save(function (err) {
+                            if (err)
+                                throw err;
+    
+                            // if successful, return the new user
+                            return done(null, aNewUser);
+                        })
+                    }
+                });*/
         }));
 }
